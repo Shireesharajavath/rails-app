@@ -1,10 +1,9 @@
-
 module Api
   class TodosController < ApplicationController
     skip_before_action :verify_authenticity_token
     before_action :authenticate_user
 
-   
+    # GET /api/todos
     def index
       todos = current_user.todos.order(created_at: :asc)
                           .page(params[:page] || 1)
@@ -20,6 +19,27 @@ module Api
           total_pages: todos.total_pages,
           total_count: todos.total_count
         }
+      }, status: :ok
+    end
+
+    # POST /api/search_todos
+    def search_todos
+      q = params[:query].to_s.strip.downcase
+
+      if q.blank?
+        todos = current_user.todos.order(created_at: :desc).limit(200)
+      else
+        pattern = "%#{q}%"
+
+        todos = current_user.todos.where(
+          "LOWER(title) LIKE :p OR LOWER(description) LIKE :p OR LOWER(priority) LIKE :p OR LOWER(status) LIKE :p OR CAST(created_at AS CHAR) LIKE :p OR CAST(scheduled_time AS CHAR) LIKE :p OR CAST(expected_completion AS CHAR) LIKE :p",
+          p: pattern
+        ).order(created_at: :desc).limit(500)
+      end
+
+      render json: {
+        success: true,
+        todos: todos.as_json(only: [:id, :title, :description, :completed, :scheduled_time, :expected_completion, :priority, :status, :created_at, :updated_at])
       }, status: :ok
     end
 

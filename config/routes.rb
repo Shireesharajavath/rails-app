@@ -19,6 +19,9 @@ Rails.application.routes.draw do
  
     # ✅ RESTful todos (for API)
     resources :todos, only: [:index]
+
+    # ✅ Search todos (new endpoint)
+    post "search_todos", to: "todos#search_todos"
  
     # ✅ RESTful users (adds POST /api/users, GET /api/users/:id, etc.)
     resources :users, only: [:create, :index, :show]
@@ -32,4 +35,3 @@ Rails.application.routes.draw do
     end
   end
 end
- 

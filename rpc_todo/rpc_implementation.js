@@ -1,7 +1,6 @@
 import axios from "axios";
 import { rpc } from "./rpc_config.js";
 
-
 rpc.register({
   name: "fetchTodos",
   arguments: {
@@ -10,26 +9,62 @@ rpc.register({
     per_page: { type: "number", required: false }
   },
   implementation: async (args) => {
-    const res = await axios.get("http://localhost:3000/api/todos", {
-      params: {
-        page: args.page || 1,
-        per_page: args.per_page || 10
-      },
-      headers: {
-        Authorization: `Bearer ${args.api_key}`
-      }
-    });
+    try {
+      const res = await axios.get("http://localhost:3000/api/todos", {
+        params: {
+          page: args.page || 1,
+          per_page: args.per_page || 10
+        },
+        headers: { Authorization: `Bearer ${args.api_key}` }
+      });
 
-    return { 
-      todos: res.data.todos, 
-      totalRowCount: res.data.pagination.total_count,  
-      currentPage: res.data.pagination.current_page,   
-      perPage: args.per_page || 10
-    };
+      return { 
+        success: true,
+        todos: res.data.todos, 
+        totalRowCount: res.data.pagination.total_count,  
+        currentPage: res.data.pagination.current_page,   
+        perPage: args.per_page || 10
+      };
+    } catch (err) {
+      return { success: false, error: err.response?.data || err.message };
+    }
+  }
+});
+
+// ------------------------- SEARCH TODOS -------------------------
+rpc.register({
+  name: "searchTodos",
+  arguments: {
+    api_key: { type: "string", required: true },
+    query: { type: "string" } // optional search term
+  },
+  implementation: async (args) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/search_todos",
+        { query: args.query || "" },
+        {
+          headers: {
+            Authorization: `Bearer ${args.api_key}`,
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          }
+        }
+      );
+
+      return { success: true, todos: res.data.todos };
+    } catch (err) {
+      return {
+        success: false,
+        status: err.response?.status,
+        error: err.response?.data || err.message
+      };
+    }
   }
 });
 
 
+// ------------------------- CREATE TODO -------------------------
 rpc.register({
   name: "createTodo",
   arguments: {
@@ -66,7 +101,7 @@ rpc.register({
   },
 });
 
-
+// ------------------------- UPDATE TODO -------------------------
 rpc.register({
   name: "updateTodo",
   arguments: {
@@ -102,7 +137,7 @@ rpc.register({
   },
 });
 
-
+// ------------------------- DELETE TODO -------------------------
 rpc.register({
   name: "deleteTodo",
   arguments: {
@@ -121,8 +156,7 @@ rpc.register({
   },
 });
 
-
-
+// ------------------------- LOGIN -------------------------
 rpc.register({
   name: "login",
   arguments: {
@@ -146,7 +180,7 @@ rpc.register({
   },
 });
 
-
+// ------------------------- SIGNUP -------------------------
 rpc.register({
   name: "signup",
   arguments: {
@@ -177,7 +211,7 @@ rpc.register({
   },
 });
 
-
+// ------------------------- GET USERS -------------------------
 rpc.register({
   name: "getUsers",
   arguments: {
@@ -195,6 +229,7 @@ rpc.register({
   },
 });
 
+// ------------------------- LOGOUT -------------------------
 rpc.register({
   name: "logout",
   arguments: {
@@ -217,9 +252,62 @@ rpc.register({
 
       return await response.json();
     } catch (error) {
-      console.error("[logout] RPC error:", error);
       return { success: false, message: error.message };
     }
   },
 });
 
+// ------------------------- GET PROFILE -------------------------
+rpc.register({
+  name: "getProfile",
+  arguments: {
+    api_key: { type: "string", required: true }
+  },
+  implementation: async (args) => {
+    try {
+      // Send API key in POST body (consistent with updateProfile)
+      const res = await axios.post(
+        "http://localhost:3000/api/getProfile",
+        { api_key: args.api_key }, // body includes API key
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      return { success: true, user: res.data.user };
+    } catch (err) {
+      console.error("[getProfile RPC] Error:", err.response?.data || err.message);
+      return { success: false, error: err.response?.data || err.message };
+    }
+  },
+});
+
+// ------------------------- UPDATE PROFILE -------------------------
+rpc.register({
+  name: "updateProfile",
+  arguments: {
+    api_key: { type: "string", required: true },
+    name: { type: "string" },
+    photo_url: { type: "string" }
+  },
+  implementation: async (args) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/updateProfile",
+        {
+          api_key: args.api_key,
+          name: args.name,
+          photo_url: args.photo_url
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      return { 
+        success: true,
+        message: res.data.message,
+        user: res.data.user
+      };
+    } catch (err) {
+      console.error("[updateProfile RPC] Error:", err.response?.data || err.message);
+      return { success: false, error: err.response?.data || err.message };
+    }
+  }
+});
