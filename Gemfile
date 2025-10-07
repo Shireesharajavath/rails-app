@@ -6,9 +6,6 @@ gem "rails", "~> 8.0.2", ">= 8.0.2.1"
 # Asset pipeline
 gem "propshaft"
 
-# Database
-gem "sqlite3", ">= 2.1"
-
 # Web server
 gem "puma", ">= 5.0"
 
@@ -22,16 +19,16 @@ gem "stimulus-rails"
 # JSON API builder
 gem "jbuilder"
 
-# Authentication (password hashing)
+# Authentication
 gem "bcrypt", "~> 3.1.7"
 
-# CORS (allow Retool / RPC backend to call your API)
+# CORS
 gem "rack-cors"
 
 # Pagination
-gem "kaminari"   #added for server-side pagination
+gem "kaminari"
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# Windows timezone data
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Rails caching, jobs, websockets
@@ -50,23 +47,21 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
-  # Debugging
+  gem "sqlite3", ">= 2.1"      # SQLite for local dev/test
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
-
-  # Security analysis
   gem "brakeman", require: false
-
-  # Rails linting
   gem "rubocop-rails-omakase", require: false
 end
 
 group :development do
-  # Console on exception pages
   gem "web-console"
 end
 
 group :test do
-  # System testing
   gem "capybara"
   gem "selenium-webdriver"
+end
+
+group :production do
+  gem "pg", ">= 1.3", "< 2.0"  # PostgreSQL for production
 end
