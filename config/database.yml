@@ -1,23 +1,18 @@
 default: &default
-  adapter: postgresql
-  encoding: unicode
+  adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: <%= ENV['DATABASE_URL'] %>
+  timeout: 5000
 
 development:
   <<: *default
-  database: todo_development
+  database: storage/development.sqlite3
 
 test:
   <<: *default
-  database: todo_test
+  database: storage/test.sqlite3
 
 production:
-  <<: *default
-  database: todo_production
+  adapter: postgresql
+  encoding: unicode
   url: <%= ENV['DATABASE_URL'] %>
-
-cable:
-  <<: *default
-  database: todo_cable_production
-  url: <%= ENV['DATABASE_URL'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
