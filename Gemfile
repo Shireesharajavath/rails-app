@@ -18,8 +18,8 @@ gem "rack-cors"
 # Pagination
 gem "kaminari"
 
-# Windows timezone data
-gem "tzinfo-data", platforms: %i[windows jruby]
+# PostgreSQL for production
+gem "pg", "~> 1.6"
 
 # Faster boot
 gem "bootsnap", require: false
@@ -28,11 +28,14 @@ group :development, :test do
   # Local database for development/testing
   gem "sqlite3", ">= 2.1"
 
+  # Debugging
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
+
+  # Optional: file watcher for development
+  gem "listen", "~> 3.7"
 end
 
 group :development do
-  # Optional: Remove if you never run Rails console in browser
   gem "web-console"
 end
 
