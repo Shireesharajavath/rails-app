@@ -15,7 +15,7 @@ Rails.application.configure do
   # Enable caching for controllers
   config.action_controller.perform_caching = true
 
-  # Cache assets with far-future expiry since they are digest-stamped.
+  # Cache assets with far-future expiry (not used in API-only app, safe to leave)
   config.public_file_server.headers = { "Cache-Control" => "public, max-age=#{1.year.to_i}" }
 
   # Serve uploaded files from local system (can switch to S3 later)
@@ -56,4 +56,13 @@ Rails.application.configure do
 
   # Hosts protection (adjust if using a custom domain)
   # config.hosts << "yourdomain.com"
+
+  # ------------------------------
+  # Disable asset pipeline for API-only apps
+  if config.respond_to?(:assets)
+    config.assets.compile = false
+    config.assets.initialize_on_precompile = false
+  end
+  # ------------------------------
+
 end
