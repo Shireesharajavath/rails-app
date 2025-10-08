@@ -3,6 +3,9 @@ source "https://rubygems.org"
 # Rails
 gem "rails", "~> 8.0.2", ">= 8.0.2.1"
 
+# Background job adapter (for Rails 8)
+gem "solid_queue"
+
 # Web server
 gem "puma", ">= 5.0"
 
@@ -47,5 +50,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-
