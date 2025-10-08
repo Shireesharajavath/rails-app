@@ -1,14 +1,14 @@
-class ApplicationController < ActionController::API
-  before_action :authenticate_user
+class CreateUsers < ActiveRecord::Migration[8.0]
+  def change
+    create_table :users do |t|
+      t.string :name
+      t.string :email
+      t.string :api_key
+      t.string :password_digest
+      t.string :photo_url
+      t.timestamps
+    end
 
-  attr_reader :current_user
-
-  private
-
-  def authenticate_user
-    
-    api_key = request.headers["X-API-KEY"]
-    @current_user = User.find_by(api_key: api_key)
-    render json: { error: "Unauthorized" }, status: :unauthorized unless @current_user
+    add_index :users, :api_key, unique: true
   end
 end
