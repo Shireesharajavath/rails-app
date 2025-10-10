@@ -15,13 +15,8 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 gem "bootsnap", require: false
 
 # Database gems
-group :development, :test do
-  gem "sqlite3", "~> 1.4"
-end
-
-group :production do
-  gem "pg", "~> 1.4"
-end
+gem "sqlite3", "~> 1.4", group: [:development, :test]
+gem "pg", "~> 1.6", group: :production
 
 # Development tools
 group :development do
