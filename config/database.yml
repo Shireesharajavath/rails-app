@@ -1,16 +1,24 @@
+# config/database.yml
+# Common defaults (no adapter here so each env sets its adapter)
 default: &default
-  adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
- 
+
 development:
   <<: *default
-  database: storage/development.sqlite3
- 
+  adapter: sqlite3
+  database: db/development.sqlite3
+
 test:
   <<: *default
-  database: storage/test.sqlite3
- 
+  adapter: sqlite3
+  database: db/test.sqlite3
+
 production:
   <<: *default
-  database: storage/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  url: <%= ENV['DATABASE_URL'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  reaping_frequency: 10
+  prepared_statements: false
