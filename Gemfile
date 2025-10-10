@@ -33,7 +33,7 @@ gem "bootsnap", require: false
 # Database setup
 # --------------------------
 # SQLite for dev/test, PostgreSQL for production
-gem "sqlite3", "~> 1.4", group: [:development, :test]
+gem "sqlite3", "~> 2.7", group: [:development, :test]
 gem "pg", "~> 1.6", group: :production
 
 # Timezone fixes for Windows only
