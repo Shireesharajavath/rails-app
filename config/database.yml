@@ -2,10 +2,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV['DB_USER'] || 'postgres' %>
-  password: <%= ENV['DB_PASSWORD'] || '' %>
-  host: <%= ENV['DB_HOST'] || 'localhost' %>
-  port: <%= ENV['DB_PORT'] || 5432 %>
+  url: <%= ENV['DATABASE_URL'] %>   # Use Render's DATABASE_URL automatically
 
 development:
   adapter: sqlite3
@@ -17,11 +14,5 @@ test:
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: db/test.sqlite3
 
-
 production:
   <<: *default
-  database: <%= ENV['DB_NAME'] %>
-  username: <%= ENV['DB_USER'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  host: <%= ENV['DB_HOST'] %>
-  port: <%= ENV['DB_PORT'] || 5432 %>
