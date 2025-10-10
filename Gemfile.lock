@@ -287,7 +287,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
-  pg
+  pg (~> 1.4)
   propshaft
   puma (>= 5.0)
   rack-cors
