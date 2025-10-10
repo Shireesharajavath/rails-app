@@ -6,7 +6,7 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.enable_reloading = false
 
-  # Eager load code on boot for better performance and memory savings (ignored by Rake tasks).
+  # Eager load code on boot for better performance and memory savings.
   config.eager_load = true
 
   # Full error reports are disabled.
@@ -34,10 +34,10 @@ Rails.application.configure do
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
   # Log to STDOUT with the current request id as a default log tag.
-  config.log_tags = [ :request_id ]
-  config.logger   = ActiveSupport::TaggedLogging.logger(STDOUT)
+  config.log_tags = [:request_id]
+  config.logger = ActiveSupport::TaggedLogging.logger(STDOUT)
 
-  # Change to "debug" to log everything (including potentially personally-identifiable information!)
+  # Change to "debug" to log everything (including personally-identifiable info!)
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Prevent health checks from clogging up the logs.
@@ -46,10 +46,10 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # ✅ Use simple in-memory caching instead of Solid Cache (fixes LoadError)
+  # ✅ Use simple in-memory caching instead of Solid Cache
   config.cache_store = :memory_store
 
-  # ✅ Disable Solid Queue (no background jobs needed for now)
+  # ✅ Disable Solid Queue (no background jobs)
   # config.active_job.queue_adapter = :solid_queue
   # config.solid_queue.connects_to = { database: { writing: :queue } }
 
@@ -68,22 +68,17 @@ Rails.application.configure do
   #   authentication: :plain
   # }
 
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation cannot be found).
+  # Enable locale fallbacks for I18n.
   config.i18n.fallbacks = true
 
-  # Do not dump schema after migrations.
-  config.active_record.dump_schema_after_migration = false
+  # 🚫 Removed ActiveRecord lines (no SQL, no migrations)
+  # config.active_record.dump_schema_after_migration = false
+  # config.active_record.attributes_for_inspect = [:id]
 
-  # Only use :id for inspections in production.
-  config.active_record.attributes_for_inspect = [ :id ]
-
-  # Enable DNS rebinding protection and other `Host` header attacks.
+  # Enable DNS rebinding protection and other Host header attacks.
   # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
+  #   "example.com",
+  #   /.*\.example\.com/
   # ]
-  #
-  # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
