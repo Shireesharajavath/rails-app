@@ -14,20 +14,23 @@ gem "kaminari"
 gem "tzinfo-data", platforms: %i[windows jruby]
 gem "bootsnap", require: false
 
+# Database gems
 group :development, :test do
   gem "sqlite3", "~> 1.4"
-  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
-end
-
-group :development do
-  gem "web-console"
-end
-
-group :test do
-  gem "capybara"
-  gem "selenium-webdriver"
 end
 
 group :production do
   gem "pg", "~> 1.4"
+end
+
+# Development tools
+group :development do
+  gem "web-console"
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
+end
+
+# Test tools
+group :test do
+  gem "capybara"
+  gem "selenium-webdriver"
 end
