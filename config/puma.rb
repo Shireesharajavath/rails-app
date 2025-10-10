@@ -11,13 +11,9 @@ port ENV.fetch("PORT") { 3000 }
 environment ENV.fetch("RAILS_ENV") { "production" }
 
 # Number of Puma workers to boot in clustered mode.
-# Workers are forked web server processes. If you’re using threads and workers together,
-# the total concurrency = threads * workers.
 workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 
-# Use the "preload_app!" method when specifying workers.
-# This allows the app code to be loaded before forking workers,
-# which saves memory and speeds up worker spawn times.
+# Preload the application before forking workers for better performance.
 preload_app!
 
 # Allow Puma to be restarted by `bin/rails restart` command.
@@ -28,3 +24,8 @@ plugin :solid_queue if ENV["SOLID_QUEUE_IN_PUMA"]
 
 # Optional: specify a PID file for production.
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
+
+# Allow Puma to gracefully restart workers
+on_worker_boot do
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+end
