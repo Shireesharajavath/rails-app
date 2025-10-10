@@ -28,4 +28,3 @@ pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
 # Allow Puma to gracefully restart workers
 on_worker_boot do
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
-end
