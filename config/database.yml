@@ -1,5 +1,5 @@
 # config/database.yml
-# Common defaults (no adapter here so each env sets its adapter)
+
 default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
@@ -16,9 +16,9 @@ test:
 
 production:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   adapter: postgresql
   encoding: unicode
-  url: <%= ENV['DATABASE_URL'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   reaping_frequency: 10
   prepared_statements: false
