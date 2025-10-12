@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   root "todos#index"
 
   # Todos CRUD (works for both HTML + JSON if you request with headers)
-  resources :todos
+  resources :todos, only: [:index, :create, :update, :destroy]
+
 
   # ---------- API routes (JSON only) ----------
   namespace :api, defaults: { format: :json } do
