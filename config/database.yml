@@ -2,7 +2,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: <%= ENV['DATABASE_URL'] %>   # Use Render's DATABASE_URL automatically
+  # url is optional, only used in production
+  url: <%= ENV['DATABASE_URL'] %>
 
 development:
   adapter: sqlite3
@@ -16,3 +17,4 @@ test:
 
 production:
   <<: *default
+  # Ensure you have DATABASE_URL set in Render

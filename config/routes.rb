@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # ✅ Health check route (no authentication required)
+  get "/", to: "health#check"
+
   # Root page (browser)
   root "todos#index"
  
@@ -11,19 +14,19 @@ Rails.application.routes.draw do
     post "login",       to: "users#login"        # API login
     post "get_api_key", to: "users#get_api_key"  # Generate/retrieve API key
     get  "me",          to: "users#me"           # Current authenticated user
-    post "logout",      to: "users#logout"       # ✅ API logout endpoint
+    post "logout",      to: "users#logout"       # API logout endpoint
  
     # Profile routes
     post "getProfile",    to: "users#get_profile"
     post "updateProfile", to: "users#update_profile"
  
-    # ✅ RESTful todos (for API)
+    # RESTful todos (for API)
     resources :todos, only: [:index]
 
-    # ✅ Search todos (new endpoint)
+    # Search todos (custom endpoint)
     post "search_todos", to: "todos#search_todos"
  
-    # ✅ RESTful users (adds POST /api/users, GET /api/users/:id, etc.)
+    # RESTful users
     resources :users, only: [:create, :index, :show]
   end
  

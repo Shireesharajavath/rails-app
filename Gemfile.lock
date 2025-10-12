@@ -272,7 +272,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   capybara
-  debug (~> 1.0)
+  debug (~> 1.11)
   importmap-rails
   jbuilder
   kaminari
