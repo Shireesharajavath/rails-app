@@ -14,7 +14,7 @@ gem "rails", "~> 8.0.2", ">= 8.0.2.1"
 gem "puma", ">= 5.0"
 
 # --------------------------
-# API-only / Asset pipeline
+# Asset pipeline & JS
 # --------------------------
 gem "propshaft"          # Modern asset pipeline
 gem "importmap-rails"    # JS management
@@ -38,21 +38,33 @@ gem "bootsnap", require: false # Speeds up boot time
 # Database setup
 # --------------------------
 gem "sqlite3", "~> 1.5", groups: [:development, :test] # Dev & test DB
-gem "pg", "~> 1.6", group: :production               # Production DB
-gem "tzinfo-data", platforms: %i[windows jruby]      # Timezone support
+gem "pg", "~> 1.6", group: :production                # Production DB
+gem "tzinfo-data", platforms: %i[windows jruby]       # Timezone support
 
 # --------------------------
 # Development tools
 # --------------------------
 group :development do
-  gem "web-console"      # Interactive console in browser
+  gem "web-console"       # Interactive console in browser
   gem "debug", "~> 1.11", platforms: [:mri], require: false
+  gem "listen", "~> 3.7"  # Detect changes in source code
+  gem "spring"            # Preloads app for faster dev commands
+  gem "spring-watcher-listen", "~> 2.0.1"
 end
 
 # --------------------------
 # Test tools
 # --------------------------
 group :test do
-  gem "capybara"          # Integration testing
+  gem "capybara"           # Integration testing
   gem "selenium-webdriver" # Browser automation
+  gem "minitest"           # Core testing framework
+  gem "webdrivers"         # Auto-manage browser drivers
+end
+
+# --------------------------
+# Optional: Production tools
+# --------------------------
+group :production do
+  gem "rails_12factor"    # For Heroku/Render logging & asset serving
 end
