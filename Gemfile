@@ -1,81 +1,58 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
-# -------------------
-# Rails
-# -------------------
-gem "rails", "~> 8.0.2", ">= 8.0.2.1"
+# --------------------------
+# Specify Ruby version
+# --------------------------
+ruby "3.2.9"
 
-# -------------------
-# Web server
-# -------------------
+# --------------------------
+# Core Rails
+# --------------------------
+gem "rails", "~> 8.0.2", ">= 8.0.2.1"
 gem "puma", ">= 5.0"
 
-# -------------------
-# Asset pipeline
-# -------------------
-gem "propshaft"
+# --------------------------
+# API-only / Asset pipeline
+# --------------------------
+gem "propshaft"          # Modern asset pipeline
+gem "importmap-rails"    # JS management
+gem "turbo-rails"        # Turbo for Hotwire
+gem "stimulus-rails"     # StimulusJS integration
+gem "jbuilder"           # JSON views
 
-# -------------------
-# JavaScript / Hotwire
-# -------------------
-gem "importmap-rails"
-gem "turbo-rails"
-gem "stimulus-rails"
+# --------------------------
+# Authentication & utilities
+# --------------------------
+gem "bcrypt", "~> 3.1.7" # Password hashing
+gem "rack-cors"          # Cross-Origin Resource Sharing support
+gem "kaminari"           # Pagination
 
-# -------------------
-# JSON API builder
-# -------------------
-gem "jbuilder"
+# --------------------------
+# Caching & performance
+# --------------------------
+gem "bootsnap", require: false # Speeds up boot time
 
-# -------------------
-# Authentication
-# -------------------
-gem "bcrypt", "~> 3.1.7"
+# --------------------------
+# Database setup
+# --------------------------
+gem "sqlite3", "~> 1.5", groups: [:development, :test] # Dev & test DB
+gem "pg", "~> 1.6", group: :production               # Production DB
+gem "tzinfo-data", platforms: %i[windows jruby]      # Timezone support
 
-# -------------------
-# CORS (for API)
-# -------------------
-gem "rack-cors"
-
-# -------------------
-# Pagination
-# -------------------
-gem "kaminari"
-
-# -------------------
-# Production DB
-# -------------------
-gem "pg", "~> 1.5"
-
-# -------------------
-# Development / Windows timezone
-# -------------------
-gem "tzinfo-data", platforms: %i[windows jruby]
-
-# -------------------
-# Faster boot
-# -------------------
-gem "bootsnap", require: false
-
-# -------------------
-# Development and Test
-# -------------------
-group :development, :test do
-  # SQLite3 for local dev/test
-  gem "sqlite3", "~> 1.7.3"
-  
-  # Debugging
-  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
-end
-
+# --------------------------
+# Development tools
+# --------------------------
 group :development do
-  # Web console for Rails console in browser
-  gem "web-console"
+  gem "web-console"      # Interactive console in browser
+  gem "debug", "~> 1.11", platforms: [:mri], require: false
 end
 
+# --------------------------
+# Test tools
+# --------------------------
 group :test do
-  # End-to-end testing
-  gem "capybara"
-  gem "selenium-webdriver"
-  gem "webdrivers"
+  gem "capybara"          # Integration testing
+  gem "selenium-webdriver" # Browser automation
 end
