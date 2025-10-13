@@ -22,7 +22,7 @@ gem "bootsnap", require: false
 
 # Database
 group :development, :test do
-  gem "sqlite3", "~> 1.5"
+  gem "sqlite3", "~> 2.7"
 end
 
 group :production do
