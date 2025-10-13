@@ -1,38 +1,38 @@
 Rails.application.routes.draw do
-  # ✅ Health check route (no authentication required)
+  # Health check
   get "/health", to: "health#check"
 
-  # Root page (browser)
+  # Root page
   root "todos#index"
 
-  # Todos CRUD (works for both HTML + JSON if you request with headers)
+  # Browser HTML todos
   resources :todos, only: [:index, :create, :update, :destroy]
 
-
-  # ---------- API routes (JSON only) ----------
+  # API namespace
   namespace :api, defaults: { format: :json } do
-    # User authentication
-    post "signup",      to: "users#signup"       # API signup
-    post "login",       to: "users#login"        # API login
-    post "get_api_key", to: "users#get_api_key"  # Generate/retrieve API key
-    get  "me",          to: "users#me"           # Current authenticated user
-    post "logout",      to: "users#logout"       # API logout endpoint
+    # User auth
+    post "signup",      to: "users#signup"
+    post "login",       to: "users#login"
+    post "get_api_key", to: "users#get_api_key"
+    get  "me",          to: "users#me"
+    post "logout",      to: "users#logout"
 
-    # Profile routes
+    # Profile
     post "getProfile",    to: "users#get_profile"
     post "updateProfile", to: "users#update_profile"
 
-    # RESTful todos (API)
-    resources :todos, only: [:index]
+    # Todos API
+    resources :todos, only: [:index, :create, :update, :destroy] do
+      collection do
+        post :search_todos
+      end
+    end
 
-    # Search todos (custom endpoint)
-    post "search_todos", to: "todos#search_todos"
-
-    # RESTful users
+    # Users API
     resources :users, only: [:create, :index, :show]
   end
 
-  # ---------- Todo time logs ----------
+  # Todo time logs
   resources :todo_time_logs, only: [] do
     collection do
       post :start
