@@ -38,7 +38,7 @@ group :development do
   gem "debug", "~> 1.11", platforms: [:mri], require: false
   gem "listen", "~> 3.7"
   gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.1"
+  gem "spring-watcher-listen", "~> 2.1.0"
 end
 
 # Test tools
