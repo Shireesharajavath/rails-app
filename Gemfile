@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 ruby "3.2.9"
 
+# Core Rails
 gem "rails", "~> 8.0.2", ">= 8.0.2.1"
 gem "puma", ">= 5.0"
 
@@ -22,7 +23,8 @@ gem "bootsnap", require: false
 
 # Database
 group :development, :test do
-  gem "sqlite3", "~> 1.5"
+  # ✅ Updated version for Rails 8 compatibility
+  gem "sqlite3", "~> 2.1"
 end
 
 group :production do

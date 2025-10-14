@@ -1,20 +1,24 @@
+# Default PostgreSQL setup for production (Render)
 default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   url: <%= ENV['DATABASE_URL'] %>
 
+# Local development uses SQLite (simple, fast)
 development:
   adapter: sqlite3
   database: db/development.sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
+# Local test database (SQLite)
 test:
   adapter: sqlite3
   database: db/test.sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
+# Production on Render (PostgreSQL)
 production:
   <<: *default
