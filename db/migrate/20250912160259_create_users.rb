@@ -6,7 +6,6 @@ class CreateUsers < ActiveRecord::Migration[8.0]
       t.string :api_key
       t.string :password_digest
       t.string :photo_url
-      t.timestamps
     end
 
     add_index :users, :api_key, unique: true

@@ -70,7 +70,7 @@ module Api
 
       render json: {
         success: true,
-        todos: todos.as_json(only: [:id, :title, :description, :completed, :scheduled_time, :expected_completion, :priority, :status, :created_at, :updated_at])
+        todos: todos.as_json(only: [:id, :title, :description, :scheduled_time, :expected_completion, :priority, :status, :created_at, :updated_at])
       }, status: :ok
     end
 
@@ -85,7 +85,6 @@ module Api
       params.require(:todo).permit(
         :title,
         :description,
-        :completed,
         :scheduled_time,
         :expected_completion,
         :priority,
