@@ -31,12 +31,4 @@ Rails.application.routes.draw do
     # Users API
     resources :users, only: [:create, :index, :show]
   end
-
-  # Todo time logs
-  resources :todo_time_logs, only: [] do
-    collection do
-      post :start
-      post :stop
-    end
-  end
 end
