@@ -3,7 +3,7 @@ module Api
     skip_before_action :authenticate_user, only: [:signup, :login, :get_api_key, :index, :create, :show, :logout, :get_profile, :update_profile]
     skip_before_action :verify_authenticity_token, only: [:signup, :login, :get_api_key, :me, :index, :create, :show, :logout, :get_profile, :update_profile]
 
-    # 🔹 Signup
+   
     def signup
       user = User.new(user_params)
       user.api_key = SecureRandom.hex(32)
@@ -19,7 +19,7 @@ module Api
       end
     end
 
-    # 🔹 Login
+   
     def login
       user = User.find_by(email: params[:email].to_s.downcase.strip)
       if user&.authenticate(params[:password])
@@ -33,7 +33,7 @@ module Api
       end
     end
 
-    # 🔹 Get API Key
+   
     def get_api_key
       email = params[:email].to_s.downcase.strip.presence
       return render json: { success: false, error: "Email is required" }, status: :bad_request if email.blank?
@@ -51,7 +51,7 @@ module Api
       render json: { success: false, error: e.message }, status: :internal_server_error
     end
 
-    # 🔹 Current User (me)
+    
     def me
       render json: {
         success: true,
@@ -59,7 +59,7 @@ module Api
       }, status: :ok
     end
 
-    # 🔹 List Users (paginated)
+   
     def index
       users = User.order(created_at: :desc)
                   .page(params[:page] || 1)
@@ -78,7 +78,7 @@ module Api
       }, status: :ok
     end
 
-    # 🔹 Create User (admin style)
+    
     def create
       user = User.new(user_params)
       user.api_key ||= SecureRandom.hex(32)
@@ -94,7 +94,7 @@ module Api
       end
     end
 
-    # 🔹 Show User
+   
     def show
       user = User.find_by(id: params[:id])
       if user
@@ -107,13 +107,13 @@ module Api
       end
     end
 
-    # 🔹 Logout
+  
     def logout
       reset_session
       render json: { success: true, message: "Logout successful" }, status: :ok
     end
 
-    # 🔹 Get Profile (by API Key)
+ 
     def get_profile
       user = User.find_by(api_key: params[:api_key])
 
@@ -132,7 +132,7 @@ module Api
       end
     end
 
-    # 🔹 Update Profile (by API Key)
+   
     def update_profile
       user = User.find_by(api_key: params[:api_key])
 

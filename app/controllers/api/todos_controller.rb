@@ -1,10 +1,7 @@
-# app/controllers/api/todos_controller.rb
 module Api
   class TodosController < ApplicationController
-    # before_action :authenticate_user # already in ApplicationController
     before_action :set_todo, only: [:show, :update, :destroy]
 
-    # GET /api/todos
     def index
       todos = current_user.todos
                           .order(created_at: :asc)
@@ -24,7 +21,7 @@ module Api
       }, status: :ok
     end
 
-    # POST /api/todos
+    
     def create
       todo = current_user.todos.new(todo_params)
       if todo.save
@@ -34,12 +31,12 @@ module Api
       end
     end
 
-    # GET /api/todos/:id
+   
     def show
       render json: { success: true, todo: @todo }, status: :ok
     end
 
-    # PUT/PATCH /api/todos/:id
+  
     def update
       if @todo.update(todo_params)
         render json: { success: true, todo: @todo }, status: :ok
@@ -48,13 +45,13 @@ module Api
       end
     end
 
-    # DELETE /api/todos/:id
+  
     def destroy
       @todo.destroy
       render json: { success: true, message: "Todo deleted successfully" }, status: :ok
     end
 
-    # POST /api/todos/search_todos
+    
     def search_todos
       q = params[:query].to_s.strip.downcase
 

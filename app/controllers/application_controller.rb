@@ -1,6 +1,6 @@
-# app/controllers/application_controller.rb
+
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session # disable CSRF for API
+  protect_from_forgery with: :null_session 
 
   before_action :authenticate_user, if: :json_request?
 
@@ -8,12 +8,10 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # Detect JSON requests
   def json_request?
     request.format.json? || request.content_type == "application/json"
   end
 
-  # Authenticate via Bearer token
   def authenticate_user
     return if defined?(@current_user) && @current_user.present?
 
@@ -26,7 +24,7 @@ class ApplicationController < ActionController::Base
     render json: { error: "Unauthorized" }, status: :unauthorized unless @current_user
   end
 
-  # Current authenticated user
+ 
   def current_user
     @current_user
   end
