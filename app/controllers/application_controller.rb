@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user, if: :json_request?
 
-  helper_method :current_user, :logged_in?
 
   private
 
@@ -27,9 +26,5 @@ class ApplicationController < ActionController::Base
  
   def current_user
     @current_user
-  end
-
-  def logged_in?
-    !!current_user
   end
 end
