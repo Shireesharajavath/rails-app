@@ -77,24 +77,7 @@ module Api
         }
       }, status: :ok
     end
-
     
-    def create
-      user = User.new(user_params)
-      user.api_key ||= SecureRandom.hex(32)
-
-      if user.save
-        render json: {
-          success: true,
-          message: "User created successfully",
-          user: user.slice(:id, :name, :email, :api_key, :photo_url)
-        }, status: :created
-      else
-        render json: { success: false, errors: user.errors.full_messages }, status: :unprocessable_entity
-      end
-    end
-
-   
     def show
       user = User.find_by(id: params[:id])
       if user
