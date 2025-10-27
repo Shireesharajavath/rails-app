@@ -22,14 +22,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_053012) do
   end
 
   create_table "todos", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "description", null: false
+    t.string "title"
+    t.text "description"
+    t.boolean "completed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "scheduled_time"
     t.datetime "expected_completion"
-    t.string "priority",null: false
-    t.string "status", null: false
+    t.string "priority"
+    t.string "status"
+    t.string "assigned_to"
+    t.text "notes"
+    t.string "tags"
+    t.integer "user_id"
+    t.integer "time_spent_seconds", default: 0
     t.index ["user_id"], name: "index_todos_on_user_id"
   end
 
