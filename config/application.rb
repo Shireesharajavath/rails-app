@@ -1,6 +1,7 @@
 require_relative "boot"
 
-require "rails/all"
+require "rails/api"
+
 
 Bundler.require(*Rails.groups)
 
