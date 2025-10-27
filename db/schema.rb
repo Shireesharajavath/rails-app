@@ -22,31 +22,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_053012) do
   end
 
   create_table "todos", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.boolean "completed"
+    t.string "title", null: false
+    t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "scheduled_time"
-    t.datetime "expected_completion"
-    t.string "priority"
-    t.string "status"
-    t.string "assigned_to"
-    t.text "notes"
-    t.string "tags"
-    t.integer "user_id"
-    t.integer "time_spent_seconds", default: 0
+    t.datetime "scheduled_time", null: false
+    t.datetime "expected_completion", null: false
+    t.string "priority", null: false
+    t.string "status", null: false
     t.index ["user_id"], name: "index_todos_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "api_key"
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "api_key", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest"
-    t.string "photo_url"
+    t.string "password_digest", null: false
+    t.string "photo_url", null: false
   end
 
   add_foreign_key "todo_time_logs", "todos"
