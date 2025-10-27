@@ -26,21 +26,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_053012) do
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "scheduled_time", null: false
-    t.datetime "expected_completion", null: false
-    t.string "priority", null: false
+    t.datetime "scheduled_time"
+    t.datetime "expected_completion"
+    t.string "priority",null: false
     t.string "status", null: false
     t.index ["user_id"], name: "index_todos_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", null: false
-    t.string "api_key", null: false
+    t.string "name"
+    t.string "email"
+    t.string "api_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest", null: false
-    t.string "photo_url", null: false
+    t.string "password_digest"
+    t.string "photo_url"
   end
 
   add_foreign_key "todo_time_logs", "todos"
