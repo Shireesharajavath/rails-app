@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "3.2.9"
 
 # Core Rails
-gem "rails", "~> 8.0.2", ">= 8.0.2.1"
+gem "rails", "~> 8.1.1"
 gem "puma", ">= 5.0"
 
 # Assets & JS
