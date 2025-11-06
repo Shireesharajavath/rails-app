@@ -24,7 +24,7 @@ gem "bootsnap", require: false
 # Database
 group :development, :test do
   # ✅ Updated version for Rails 8 compatibility
-  gem "sqlite3", "~> 2.1"
+  gem "sqlite3", "~> 2.8"
 end
 
 group :production do
